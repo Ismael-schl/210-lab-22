@@ -216,12 +216,17 @@ int main() {
     srand(time(0));
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
-    int val = rand() % size; 
+    int valarr[MAX_LS];
 
-    for (int i = 0; i < size; ++i)
-        list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
-
-    cout << "Attempting to delete " << val << " from list: \n" << "Potentially new list: ";
+    for (int i = 0; i < size; ++i) {
+        valarr[i] = rand() % (MAX_NR-MIN_NR+1) + MIN_NR;
+        list.push_back(valarr[i]);
+    }
+    
+    cout << "Original list:" << endl;
+    list.print(); 
+    int val = valarr[rand() % size];
+    cout << "Attempting to delete " << val << " from list: \n" << "New list: ";
     list.delete_val(val);
     list.print();
 
@@ -237,7 +242,7 @@ int main() {
     list.print();
 
     //decreasing size to allow delete_pos to get an in-range element
-    size -=2;
+    size -=3;
     cout << "After deleting an element at a random position in the list: \n";
     list.delete_pos(rand() % size);
     list.print();
