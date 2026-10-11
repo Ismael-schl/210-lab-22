@@ -1,5 +1,7 @@
 //Lab 22| COMSC 210 | Ismael Hadi
 #include <iostream>
+#include <ctime>
+#include <cstdlib>
 using namespace std;
 
 const int MIN_NR = 10, MAX_NR = 99, MIN_LS = 5, MAX_LS = 20;
@@ -214,25 +216,32 @@ int main() {
     srand(time(0));
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
+    int val = rand() % size; 
 
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
 
+    cout << "Attempting to delete " << val << " from list: \n" << "Potentially new list: ";
+    list.delete_val(val);
+    list.print();
+
     cout << "List forward: ";
     list.print();
 
-    cout << "Deleting head node: ";
+    cout << "After deleting head node: ";
     list.pop_front();
     list.print();
 
-    cout << "Deleting tail node: ";
+    cout << "After deleting tail node: ";
     list.pop_back();
     list.print();
 
-    size -=2
-    cout << "Deleting an element at a random position in the list";
-    list.delete_pos(rand() % (MAX_LS-MIN_LS+1) + MIN_LS);
-    
+    //decreasing size to allow delete_pos to get an in-range element
+    size -=2;
+    cout << "After deleting an element at a random position in the list: \n";
+    list.delete_pos(rand() % size);
+    list.print();
+
     cout << "List backward: ";
     list.print_reverse();
 
