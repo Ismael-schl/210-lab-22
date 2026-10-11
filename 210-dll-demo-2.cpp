@@ -105,10 +105,17 @@ public:
         int index = 0;
         if (!head) return;
         Node* current = head;
+        Node* succ = nullptr;
+        Node* pred = nullptr;
         while (index != pos) {
             current = current->next;
-
+            index++;
         }
+        succ = current->next;
+        pred = current->prev;
+        delete current;
+        pred->next = succ;
+        succ->prev = pred;
     }
 
     void pop_front() {
@@ -122,7 +129,9 @@ public:
     void pop_back() {
         if (!head) 
             return;
-        Node*
+        Node* pred = tail->prev;
+        pred->next = nullptr;
+        tail = pred;
     }
 
     void print() {
@@ -166,6 +175,10 @@ int main() {
 
     cout << "Deleting head node: ";
     list.pop_front();
+    list.print();
+
+    cout << "Deleting tail node: ";
+    list.pop_back();
     list.print();
 
     cout << "List backward: ";
