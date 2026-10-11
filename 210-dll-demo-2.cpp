@@ -1,4 +1,4 @@
-//Lab 22| COMSC 210| Ismael Hadi
+//Lab 22| COMSC 210 | Ismael Hadi
 #include <iostream>
 using namespace std;
 
