@@ -225,14 +225,13 @@ int main() {
     
     cout << "Original list:" << endl;
     list.print(); 
+
     int val = valarr[rand() % size];
     cout << "Attempting to delete " << val << " from list: \n" << "New list: ";
     list.delete_val(val);
     list.print();
 
-    cout << "List forward: ";
-    list.print();
-
+    
     cout << "After deleting head node: ";
     list.pop_front();
     list.print();
@@ -245,6 +244,9 @@ int main() {
     size -=3;
     cout << "After deleting an element at a random position in the list: \n";
     list.delete_pos(rand() % size);
+    list.print();
+
+    cout << "List forward: ";
     list.print();
 
     cout << "List backward: ";
