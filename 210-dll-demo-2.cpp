@@ -105,29 +105,35 @@ public:
         int index = 0;
         if (!head) return;
         if (pos == 0) {
+            if (head->next == nullptr) {
+                delete head;
+                head = nullptr;
+                tail = nullptr;
+                return;
+            }
             Node* successor = head->next;
             successor->prev = nullptr;
             head = successor;
             return;
         }
         Node* current = head;
-        Node* succ = nullptr;
-        Node* pred = nullptr;
+        
         while (index != pos && current->next != nullptr) {
             current = current->next;
             index++;
         }
-        if (!current) {
+        if (index != pos) {
             return;
         }
-        if (current->next != nullptr) {
+        if (current->next == nullptr) {
             Node* prede = tail->prev;
             prede->next = nullptr;
+            delete tail;
             tail = prede;
             return;
         }
-        succ = current->next;
-        pred = current->prev;
+        Node* succ = current->next;
+        Node* pred = current->prev;
         delete current;
         pred->next = succ;
         succ->prev = pred;
@@ -146,6 +152,7 @@ public:
             return;
         Node* prede = tail->prev;
         prede->next = nullptr;
+        delete tail;
         tail = prede;
     }
 
