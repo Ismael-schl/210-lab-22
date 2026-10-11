@@ -104,12 +104,27 @@ public:
     void delete_pos(int pos) {
         int index = 0;
         if (!head) return;
+        if (pos == 0) {
+            Node* successor = head->next;
+            successor->prev = nullptr;
+            head = successor;
+            return;
+        }
         Node* current = head;
         Node* succ = nullptr;
         Node* pred = nullptr;
-        while (index != pos) {
+        while (index != pos && current->next != nullptr) {
             current = current->next;
             index++;
+        }
+        if (!current) {
+            return;
+        }
+        if (current->next != nullptr) {
+            Node* prede = tail->prev;
+            prede->next = nullptr;
+            tail = prede;
+            return;
         }
         succ = current->next;
         pred = current->prev;
@@ -129,9 +144,9 @@ public:
     void pop_back() {
         if (!head) 
             return;
-        Node* pred = tail->prev;
-        pred->next = nullptr;
-        tail = pred;
+        Node* prede = tail->prev;
+        prede->next = nullptr;
+        tail = prede;
     }
 
     void print() {
