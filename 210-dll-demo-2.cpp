@@ -101,9 +101,12 @@ public:
         delete temp;
     }
 
+    //this function takes a position as an input and deletes the node at that position. It includes several edge cases as is expected for deletion in a dll
     void delete_pos(int pos) {
         int index = 0;
+        //empty list case
         if (!head) return;
+        //1 element case
         if (pos == 0) {
             if (head->next == nullptr) {
                 delete head;
@@ -113,6 +116,7 @@ public:
             }
             Node* successor = head->next;
             successor->prev = nullptr;
+            delete head;
             head = successor;
             return;
         }
@@ -122,6 +126,7 @@ public:
             current = current->next;
             index++;
         }
+        //if index is out of range
         if (index != pos) {
             return;
         }
@@ -139,17 +144,36 @@ public:
         succ->prev = pred;
     }
 
+    //this function deletes the head of the list
     void pop_front() {
+        //empty list case
         if (!head) 
             return;
+        //1 element list case
+        if (!head->next) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
         Node* successor = head->next;
         successor->prev = nullptr;
+        delete head;
         head = successor;
     }
 
+    //this function deletes the tail of the list
     void pop_back() {
+        //empty list case
         if (!head) 
             return;
+        //one element list case
+        if (!tail->prev) {
+            delete tail;
+            head = nullptr;
+            tail = nullptr;
+            return;
+        }
         Node* prede = tail->prev;
         prede->next = nullptr;
         delete tail;
@@ -187,11 +211,13 @@ public:
 
 // Driver program
 int main() {
+    srand(time(0));
     DoublyLinkedList list;
     int size = rand() % (MAX_LS-MIN_LS+1) + MIN_LS;
 
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
+
     cout << "List forward: ";
     list.print();
 
@@ -203,6 +229,10 @@ int main() {
     list.pop_back();
     list.print();
 
+    size -=2
+    cout << "Deleting an element at a random position in the list";
+    list.delete_pos(rand() % (MAX_LS-MIN_LS+1) + MIN_LS);
+    
     cout << "List backward: ";
     list.print_reverse();
 
