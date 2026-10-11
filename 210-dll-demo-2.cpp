@@ -114,12 +114,15 @@ public:
     void pop_front() {
         if (!head) 
             return;
-        Node* temp = head;
-        
+        Node* successor = head->next;
+        successor->prev = nullptr;
+        head = successor;
     }
 
     void pop_back() {
-
+        if (!head) 
+            return;
+        Node*
     }
 
     void print() {
@@ -159,6 +162,10 @@ int main() {
     for (int i = 0; i < size; ++i)
         list.push_back(rand() % (MAX_NR-MIN_NR+1) + MIN_NR);
     cout << "List forward: ";
+    list.print();
+
+    cout << "Deleting head node: ";
+    list.pop_front();
     list.print();
 
     cout << "List backward: ";
